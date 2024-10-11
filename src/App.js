@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import CustomerList from './components/CustomerList';
 import AddCustomer from './components/AddCustomer';
 import EditCustomer from './components/EditCustomer';
+import RestaurantManager from './components/RestaurantManager';
 import Login from './components/Login';
 import Register from './components/Register';
 
@@ -33,7 +34,6 @@ function App() {
     setIsAuthenticated(false);
     setUsername('');
   };
-
   return (
     <Router>
       <div className="App">
@@ -45,6 +45,7 @@ function App() {
           <Route path="/edit/:id" element={isAuthenticated ? <EditCustomer /> : <Navigate to="/login" />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/restaurant" element={isAuthenticated ? <RestaurantManager /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>
