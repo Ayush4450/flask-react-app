@@ -10,11 +10,11 @@ const Navbar = ({ isAuthenticated, username, onLogout }) => {
           <>
             <li style={{ color: 'white', fontWeight: 'bold' }}><h2 style={{ textAlign: 'center', textDecoration: 'none' }}>Welcome, {username}</h2></li>
             <li><br></br></li>
-            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 45px' }}><Link to="/add" style={{ color: 'yellow', textDecoration: 'none' }}>Add Customer</Link></li>
-            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 45px' }}><Link to="/" style={{ color: 'yellow', textDecoration: 'none' }}>View Customers</Link></li>
-            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 45px' }}><Link to="/restaurant" style={{ color: 'yellow', textDecoration: 'none' }}>Restaurants Management</Link></li>
-            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 45px' }}><a href="http://127.0.0.1:8080" target = "blank" rel="noopener noreferrer" style={{ color: 'cyan', textDecoration: 'none' }}>Predict Rating</a></li>
-            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 45px' }}><button onClick={onLogout} style={{  backgroundColor: '#333',color: 'white', textDecoration: 'none' }}>Logout</button></li>
+            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 30px' }}><Link to="/add" style={{ color: 'yellow', textDecoration: 'none' }}>Add Customer</Link></li>
+            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 30px' }}><Link to="/" style={{ color: 'yellow', textDecoration: 'none' }}>View Customers</Link></li>
+            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 30px' }}><Link to="/restaurant" style={{ color: 'yellow', textDecoration: 'none' }}>Restaurants Management</Link></li>
+            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 30px' }}><a href="http://127.0.0.1:8080" target = "blank" rel="noopener noreferrer" style={{ color: 'cyan', textDecoration: 'none' }}>Predict Rating</a></li>
+            <li style={{ color: 'white', fontWeight: 'bold', margin: '0 30px' }}><button onClick={onLogout} style={{  backgroundColor: '#333',color: 'white', textDecoration: 'none' }}>Logout</button></li>
           </>
         ) : (
           <>
