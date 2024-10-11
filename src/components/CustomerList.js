@@ -44,33 +44,52 @@ const CustomerList = () => {
   };
 
   return (
-    <div className="customer-list">
-      <h2>Customer List</h2>
+    <div className="customer-list" style={{ padding: '20px' }}>
+      <h2 style={{ textAlign: 'center' }}>Customer List</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <table>
+      <table style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginTop: '20px'
+      }}>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Dish Selected</th>
-            <th>Rating</th>
-            <th>Actions</th>
+            <th style={{ border: '1px solid #ccc', padding: '10px' }}>Name</th>
+            <th style={{ border: '1px solid #ccc', padding: '10px' }}>Email</th>
+            <th style={{ border: '1px solid #ccc', padding: '10px' }}>Phone</th>
+            <th style={{ border: '1px solid #ccc', padding: '10px' }}>Address</th>
+            <th style={{ border: '1px solid #ccc', padding: '10px' }}>Dish Selected</th>
+            <th style={{ border: '1px solid #ccc', padding: '10px' }}>Rating</th>
+            <th style={{ border: '1px solid #ccc', padding: '10px' }}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {customers.map(customer => (
             <tr key={customer.id}>
-              <td>{customer.name}</td>
-              <td>{customer.email}</td>
-              <td>{customer.phone}</td>
-              <td>{customer.address}</td>
-              <td>{customer.dish_selected}</td>
-              <td>{customer.rating}</td>
-              <td>
-                <Link to={`/edit/${customer.id}`}><button>Edit</button></Link>
-                <button onClick={() => deleteCustomer(customer.id)}>Delete</button>
+              <td style={{ border: '1px solid #ccc', padding: '10px' }}>{customer.name}</td>
+              <td style={{ border: '1px solid #ccc', padding: '10px' }}>{customer.email}</td>
+              <td style={{ border: '1px solid #ccc', padding: '10px' }}>{customer.phone}</td>
+              <td style={{ border: '1px solid #ccc', padding: '10px' }}>{customer.address}</td>
+              <td style={{ border: '1px solid #ccc', padding: '10px' }}>{customer.dish_selected}</td>
+              <td style={{ border: '1px solid #ccc', padding: '10px' }}>{customer.rating}</td>
+              <td style={{ border: '1px solid #ccc', padding: '10px' }}>
+                <Link to={`/edit/${customer.id}`}>
+                  <button style={{
+                    backgroundColor: 'yellow',
+                    color: 'black',
+                    border: 'none',
+                    padding: '5px 10px',
+                    marginRight: '5px',
+                    cursor: 'pointer'
+                  }}>Edit</button>
+                </Link>
+                <button onClick={() => deleteCustomer(customer.id)} style={{
+                  backgroundColor: 'red',
+                  color: 'white',
+                  border: 'none',
+                  padding: '5px 10px',
+                  cursor: 'pointer'
+                }}>Delete</button>
               </td>
             </tr>
           ))}
