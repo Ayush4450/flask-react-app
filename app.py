@@ -19,8 +19,9 @@ jwt = JWTManager(app)
 try:
     client = MongoClient('mongodb://localhost:27017/')
     db = client['restaurant-customer-management']
-    customers_collection = db['customers']
+    customers_collection = db['customers']      # Customers collection
     users_collection = db['users']  # New collection for users
+    restaurant_collection = db['restaurants']        # Restaurants collection
     print("Connected to MongoDB")
 except errors.ConnectionError as e:
     print("Error connecting to MongoDB : ", e)
@@ -36,6 +37,15 @@ def customer_to_json(customer):
         "address": customer["address"],
         "dish_selected": customer["dish_selected"],
         "rating": customer["rating"]
+    }
+
+def restaurant_to_json(restaurant):
+    return {
+        "id": str(restaurant["_id"]),
+        "name": restaurant["name"],
+        "location": restaurant["location"],
+        "cuisine": restaurant["cuisine"],
+        "rating": restaurant["rating"]
     }
 
 # User registration
@@ -177,6 +187,81 @@ def delete_customer(id):
             return jsonify({"error": "Customer not found"}), 404
 
         return jsonify({"message": "Customer deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+# Get all restaurants
+@app.route('/restaurants', methods=['GET'])
+def get_restaurants():
+    try:
+        restaurants = list(restaurant_collection.find())
+        return jsonify([restaurant_to_json(restaurant) for restaurant in restaurants]), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Add a new restaurant
+@app.route('/restaurants', methods=['POST'])
+def add_restaurant():
+    try:
+        data = request.json
+        if not data or not all(key in data for key in ["name", "location", "cuisine", "rating"]):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        new_restaurant = {
+            "name": data['name'],
+            "location": data['location'],
+            "cuisine": data['cuisine'],
+            "rating": data['rating']
+        }
+        result = restaurant_collection.insert_one(new_restaurant)
+        new_restaurant["_id"] = result.inserted_id
+        return jsonify(restaurant_to_json(new_restaurant)), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Update a restaurant
+@app.route('/restaurants/<id>', methods=['PUT'])
+def update_restaurant(id):
+    try:
+        data = request.json
+        if not data or not all(key in data for key in ["name", "location", "cuisine", "rating"]):
+            return jsonify({"error": "Missing required fields"}), 400
+
+        updated_restaurant = {
+            "name": data['name'],
+            "location": data['location'],
+            "cuisine": data['cuisine'],
+            "rating": data['rating']
+        }
+
+        try:
+            result = restaurant_collection.update_one({"_id": ObjectId(id)}, {"$set": updated_restaurant})
+        except InvalidId:
+            return jsonify({"error": "Invalid restaurant ID format"}), 400
+
+        if result.matched_count == 0:
+            return jsonify({"error": "Restaurant not found"}), 404
+
+        updated_restaurant["_id"] = ObjectId(id)
+        return jsonify(restaurant_to_json(updated_restaurant)), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Delete a restaurant
+@app.route('/restaurants/<id>', methods=['DELETE'])
+def delete_restaurant(id):
+    try:
+        try:
+            result = restaurant_collection.delete_one({"_id": ObjectId(id)})
+        except InvalidId:
+            return jsonify({"error": "Invalid restaurant ID format"}), 400
+
+        if result.deleted_count == 0:
+            return jsonify({"error": "Restaurant not found"}), 404
+
+        return jsonify({"message": "Restaurant deleted"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
