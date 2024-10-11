@@ -4,9 +4,9 @@ body {
 }
 
 .navbar {
-  background-color: #e0edf141;
+  background-color: #FF312E;
   padding: 10px;
-  color: #f572cd;
+  color: #000103;
   text-align: center;
   font-size: large;
   position: fixed;
@@ -27,10 +27,17 @@ body {
   margin: 0 10px;
 }
 
+
 .navbar ul li a {
-  color: rgb(31, 18, 218);
+  border: 4px solid #FF312E;
   text-decoration: none;
+  font-size:larger
 }
+
+.navbar h1 {
+  margin-left: 15px;
+}
+
 
 .customer-list, .add-customer, .edit-customer {
   margin: 20px;
@@ -57,8 +64,8 @@ th, td {
 button {
   margin: 5px;
   padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #72BF78;
+  color: yellow;
   border: none;
   cursor: pointer;
   border-radius: 50px;
